@@ -1,0 +1,56 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/src/Bookish.Worker.Host/Bookish.Worker.Host.csproj"
+            ],
+            "problemMatcher": "$tsc"
+        },
+        {
+            "label": "publish",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "publish",
+                "${workspaceFolder}/src/Bookish.Worker.Host/Bookish.Worker.Host.csproj"
+            ],
+            "problemMatcher": "$tsc"
+        },
+        {
+            "label": "watch",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "watch",
+                "run",
+                "${workspaceFolder}/src/Bookish.Worker.Host/Bookish.Worker.Host.csproj"
+            ],
+            "problemMatcher": "$tsc"
+        },
+        {
+            "label": "Start Docker RabbitMq",
+            "type": "shell",
+            "command": "docker run -d --hostname rabbitmq-localserver --name rabbitmq-localcontainer rabbitmq:3",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Start Docker RabbitMq-Management",
+            "type": "shell",
+            "command": "docker run -d --hostname rabbitmq-localserver-management --name rabbitmq-localcontainer-management -p 8080:15672 rabbitmq:3-management",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": []
+        }
+    ]
+}
